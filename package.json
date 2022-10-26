@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/gaoliulin/react-scaffold/issues"
   },
-  "homepage": "https://github.com/gaoliulin/react-scaffold#readme"
+  "homepage": "https://github.com/gaoliulin/react-scaffold#readme",
+  "devDependencies": {
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
 }
