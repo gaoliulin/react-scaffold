@@ -1,5 +1,8 @@
 const path = require('path')  //导入node.js 中专门操作路径的模块
 const root_path = path.resolve(__dirname);
+const HtmlWebPckPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 
 // Cannot find module 'glob'
 // const glob = require('glob');
@@ -44,7 +47,22 @@ module.exports = {
         rules:[   //文件后缀名的匹配规则
             {test:/\.css/,use:['style-loader','css-loader']}
         ]
-    }
+    },
+    plugins:[
+        new CleanWebpackPlugin(),
+        new HtmlWebPckPlugin({
+            title: '测试title属性', 
+            filename: './dist/src/page1.html', 
+            template: 'public/index.html',
+            chunks: ['page1'], 
+        }),
+        new HtmlWebPckPlugin({
+            title: '测试title属性', 
+            filename: './dist/src/page2.html', 
+            template: 'public/index.html',
+            chunks: ['page2'], 
+        })
+    ]
       
 }
 
