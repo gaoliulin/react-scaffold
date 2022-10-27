@@ -1,5 +1,5 @@
 ;(function(){
     const name = 'xiao gao';
-    console.log('name, name');
+    console.log('name', name);
 
 })()
