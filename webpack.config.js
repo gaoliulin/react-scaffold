@@ -47,7 +47,22 @@ let config = {
     },
     module:{  //所有第三方模块匹配规则
         rules:[   //文件后缀名的匹配规则
-            {test:/\.css/,use:['style-loader','css-loader']}
+            {test:/\.css/,use:['style-loader','css-loader']},
+            // 'transform-runtime' 插件告诉 Babel
+            // 要引用 runtime 来代替注入。
+            // {
+            //     test: /\.m?js$/,
+            //     exclude: /(node_modules|bower_components)/,
+            //     use: {
+            //     loader: 'babel-loader',
+            //         options: {
+            //             presets: ['@babel/preset-env'],
+            //             plugins: ['@babel/plugin-transform-runtime']
+            //         }
+            //     }
+            // },
+            // 这两行是处理 react 相关的内容
+            { test: /\.(js|jsx)$/, use: 'babel-loader', exclude: /node_modules/ }
         ]
     },
     plugins:[
