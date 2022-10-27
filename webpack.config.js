@@ -27,15 +27,17 @@ const entrys = [
     path.join(__dirname,'./src/pages/page2/app.js'),
 ]
 const entrys2 = {
+    index: path.join(__dirname,'./src/pages/index/app.js'),
     page1: path.join(__dirname,'./src/pages/page1/app.js'),
     page2: path.join(__dirname,'./src/pages/page2/app.js'),
 }
 console.log('entrys--', entrys);
 
 
+const isDev = process.env.NODE_ENV ==='development'
 
-module.exports = {
-    // mode:'development',  // mode用来指定结构模式，可选值有development 和 production
+let config = {
+    mode:'development',  // mode用来指定结构模式，可选值有development 和 production
     // entry: path.join(__dirname,'./src/pages/page1/app.js'),//打包入口文件路径
     entry: entrys2,
     output:{
@@ -49,24 +51,64 @@ module.exports = {
         ]
     },
     plugins:[
-        new CleanWebpackPlugin(),
+        // new CleanWebpackPlugin(),
         new HtmlWebPckPlugin({
             title: '测试title属性', 
-            filename: './dist/src/page1.html', 
+            filename: './index.html', 
             template: 'public/index.html',
-            chunks: ['page1'], 
+            chunks: ['index'], 
+            inject: 'body',
         }),
         new HtmlWebPckPlugin({
             title: '测试title属性', 
-            filename: './dist/src/page2.html', 
+            filename: './page1.html', 
+            template: 'public/index.html',
+            chunks: ['page1'], 
+            inject: 'body',
+        }),
+        new HtmlWebPckPlugin({
+            title: '测试title属性', 
+            filename: './page2.html', 
             template: 'public/index.html',
             chunks: ['page2'], 
+            inject: 'body',
         })
-    ]
+    ],
       
+}
+
+if (isDev) {
+    // config.devtool =“＃廉价模块-EVAL-源映射”//代码映射
+    config.devServer = {
+        static: {
+        //   directory: path.join(__dirname,'public'),
+          directory: path.join(__dirname,'dist/src'),
+        },
+        compress: true,
+        // 开启服务器时，顺便打开浏览器
+        open: true,
+        // 开启服务器时，设置端口
+        port: 9000,
+        /**
+         * 开启 Hot Module Replace 模块热更新
+         * 此配置还需要对 plugins 进行额外配置，配置如下
+         * 模块热更新的作用是在开发中，修改样式文件时不会造成文件重新被打包刷新
+         * 大大方便了开发者中开发中对样式的调试
+         */
+        // hot: true,
+        // proxy: {
+        //     '/api': 'http://127.0.0.1:5000'
+        // },
+    };
+    // config.plugins.push(
+    //     new webpack.HotModuleReplacementPlugin(),
+    //     new webpack.NoEmitOnErrorsPlugin()//热更相关插件
+    // )
 }
 
 
 
 
 
+
+module.exports = config;
