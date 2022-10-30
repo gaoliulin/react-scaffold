@@ -38,6 +38,8 @@ const isDev = process.env.NODE_ENV ==='development'
 
 let config = {
     mode:'development',  // mode用来指定结构模式，可选值有development 和 production
+    //此选项生成的Source Map 能够保证 '运行时报错的行数' 与 '源代码的行数'保持一致
+    // devtool:'eval-source-map',
     // entry: path.join(__dirname,'./src/pages/page1/app.js'),//打包入口文件路径
     entry: entrys2,
     output:{
