@@ -1,19 +1,10 @@
-// ;(function(){
-//     const name = ' index';
-//     console.log('name', name);
-//     console.log('name', name);
-//     console.log('name', name);
-    
-// })()
-
 import React from "react";
-import ReactDOM from "react";
+import ReactDOM from "react-dom";
 
-
-// React.createElement("div", null, "Hello world!");
+import HomePage from './home.js'
 
 ReactDOM.render(
-    <h1>"Hello world!"</h1>,
+    <HomePage />,
     document.getElementById('root')
 );
 
