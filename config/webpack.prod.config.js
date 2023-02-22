@@ -2,6 +2,29 @@
 const {merge} = require('webpack-merge');
 const common = require('./webpack.common.config.js');
 
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 module.exports = merge(common, {
   mode: 'production',
+  output: {
+    filename: 'js/[name].[chunkhash:8].bundle.js',
+  },
+  plugins: [
+    //  清楚 dist 下的文件
+    new CleanWebpackPlugin(),
+    // 自带生产 html 插件
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      // 这里有小伙伴可能会疑惑为什么不是 '../public/index.html'
+      // 我的理解是无论与要用的template是不是在一个目录，都是从根路径开始查找
+      template: 'public/index.html',
+      inject: 'body',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+      },
+    }),
+    
+  ]
 });
