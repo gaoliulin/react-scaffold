@@ -4,11 +4,38 @@ const common = require('./webpack.common.config.js');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = merge(common, {
   mode: 'production',
+  entry: {
+    index: './src/index.js',
+    framework: ['react','react-dom'],
+  },
   output: {
     filename: 'js/[name].[chunkhash:8].bundle.js',
+  },
+  optimization: {
+    minimizer: [new UglifyJsPlugin()],
+    splitChunks: {
+      chunks: 'all',
+      minSize: 30000,
+      maxSize: 0,
+      minChunks: 1,
+      cacheGroups: {
+        framework: {
+          test: "framework",
+          name: "framework",
+          enforce: true
+        },
+        vendors: {
+          priority: -10,
+          test: /node_modules/,
+          name: "vendor",
+          enforce: true,
+        },
+      }
+    }
   },
   plugins: [
     //  清楚 dist 下的文件
@@ -26,5 +53,6 @@ module.exports = merge(common, {
       },
     }),
     
-  ]
+  ],
+  
 });
