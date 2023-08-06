@@ -4,7 +4,7 @@ const common = require('./webpack.common.config.js');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = merge(common, {
   mode: 'production',
@@ -16,7 +16,7 @@ module.exports = merge(common, {
     filename: 'js/[name].[chunkhash:8].bundle.js',
   },
   optimization: {
-    minimizer: [new UglifyJsPlugin()],
+    // minimizer: [new UglifyJsPlugin()],
     splitChunks: {
       chunks: 'all',
       minSize: 30000,
